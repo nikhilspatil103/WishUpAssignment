@@ -64,6 +64,7 @@ const buySubscription = async function (req, res) {
 //!------------------------------------------
 
 //getSubcriptionByDate API
+// to calculate days basic logic is to substract subscription end date with param date (in milliseconds)
 
 const getSubcriptionByDate = async function (req, res) {
     try {
@@ -104,7 +105,7 @@ const getSubcriptionByDate = async function (req, res) {
         for (let i = 0; i < findSub.length; i++) {
             if (findSub[i].planId === 'FREE') {
 
-                let obj = {
+                const obj = {
                     planId: findSub[i].planId,
                     daysLeft: 'infinite'
                 }
@@ -154,6 +155,9 @@ const getSubcriptionByDate = async function (req, res) {
 }
 
 //!----------------------------------------------------------------------------------------------------------------
+
+
+//getSubcription API
 
 const getSubcription = async function (req, res) {
     try {
