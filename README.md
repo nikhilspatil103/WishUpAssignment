@@ -3,7 +3,7 @@
 - This project is about creating the primary REST service for a **Subscription as a Service** startup. My REST service will be used by companies that will define subscriptions plans to which the users of the platform can subscribe to.
 - This assignment consists of 4 APIs :
   - 2 for User registration and fetch user details.
-  - 2 for subscriptions - Purchase subscription and fetch by user_name.
+  - 2 for subscriptions - Purchase subscription and fetch by userName.
 - Created a branch named `Assignment/WishUp` and followed proper naming convention in order to convey my work efficiently.
 ## Models
 - User Model
@@ -22,18 +22,18 @@
 }
 ```
 ## API Services
-### PUT /user/:user_name
+### PUT /user/:userName
 - Create a user with specified username in the database.
 - **Sample input**
-  - _PUT /user/tushar_
+  - _PUT /user/Nikhil_
 - **Required Output**
   - Just a HTTP status code of 200 on success/ 201 for successful creation or any other appropriate code for failures.
-### GET /user/:user_name
-- Fetch the user document from the database by the user_name.
+### GET /user/:userName
+- Fetch the user document from the database by the userName.
 - **Sample input**
-  - _GET /user/tushar_
+  - _GET /user/Nikhil_
 - **Sample Output**
-```JavScript
+```JavaScript
 {
     userName : "Nikhil Patil",
     createdAt : "2022-02-28 20:30:05"
@@ -58,9 +58,9 @@
     }
     ```
 - On success, return 200 HTTP status code. For failures, pick an appropriate status code for it.
-- The timestamps indicates the start dtae for the new plan, and it will be valid for the number of days shown in th etable below.
-- plan_id can be one of those listed in the table below : 
-**Plan ID** | **Validity (in days)** | **Cost (USD)**
+- The timestamps indicates the start date for the new plan, and it will be valid for the number of days shown in the  table below.
+- planId can be one of those listed in the table below : 
+
 
 |**Plan ID** | **Validity (in days)** | **Cost (USD)**|
 |------------|------------------------|---------------|
@@ -70,9 +70,9 @@
 |  PRO_1M    |        30              |  200.0        |
 |  LITE_6M   |       180              |  500.0        |
 |  PRO_6M    |       180              |  900.0        |
-### GET /subscription/:user_name/:start_date
+### GET /subscription/:userName/:date
 - When input date is specified.
-    - plan_id that will be active for user at specified date.
+    - planId that will be active for user at specified date.
     - Number of days left in plan from the specified input date.
 - __Sample Output__
     ```JavaScript
@@ -81,6 +81,7 @@
         daysLeft : 3
     }
     ```
+### GET /subscription/:userName
 - When input date is NOT specified.
     - List all subscription entrie available in database for user with start and valid till dates.
 - __Sample Output__
