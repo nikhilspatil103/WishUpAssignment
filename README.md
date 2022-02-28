@@ -1,9 +1,9 @@
 ## WishUp 
 ### Overview
 - This project is about creating the primary REST service for a **Subscription as a Service** startup. My REST service will be used by companies that will define subscriptions plans to which the users of the platform can subscribe to.
-- This assignment consists of 4 APIs :
+- This assignment consists of 5 APIs :
   - 2 for User registration and fetch user details.
-  - 2 for subscriptions - Purchase subscription and fetch by userName.
+  - 3 for subscriptions - Purchase subscription , fetch by  (userName & date) and fetch by only userName .
 - Created a branch named `Assignment/WishUp` and followed proper naming convention in order to convey my work efficiently.
 ## Models
 - User Model

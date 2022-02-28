@@ -82,10 +82,6 @@ const getSubcriptionByDate = async function (req, res) {
         }
         //Validation end
 
-        const newDate = new Date(`${date} 00:00:00`);
-        const dateFromParams = newDate.getTime()                 //converting date from  params  to milliseconds
-
-
 
         const findUser = await userModel.findOne({ userName: userName })
 
@@ -99,7 +95,11 @@ const getSubcriptionByDate = async function (req, res) {
             return res.status(404).send({ status: false, message: `No active subcription for this ${userName} ` })
         }
 
-        let validSub = []
+        const newDate = new Date(`${date} 00:00:00`);
+        const dateFromParams = newDate.getTime()                 //converting date from params  to milliseconds
+
+
+        let validSub = []                                                //will push all valid Subcription
 
         for (let i = 0; i < findSub.length; i++) {
             if (findSub[i].planId === 'FREE') {
@@ -114,14 +114,14 @@ const getSubcriptionByDate = async function (req, res) {
 
 
             const newDate = new Date(`${strDate} 00:00:00`);
-            const strDateInMilli = newDate.getTime();                        //conver to milliseconds
+            const strDateInMilli = newDate.getTime();                         //conver start Date to milliseconds
 
             const planIndex = plan.enumPlanId.indexOf(findSub[i].planId)     // index of planId from plan array
             const days = plan.enumPlanValidity[planIndex]                    // valid days
 
 
 
-            const validTill = (days * 24 * 60 * 60 * 1000) + strDateInMilli   // find valid date milliseconds
+            const validTill = (days * 24 * 60 * 60 * 1000) + strDateInMilli   // find valid date in milliseconds
 
             const timeDiff = validTill - dateFromParams
 
@@ -179,7 +179,7 @@ const getSubcription = async function (req, res) {
             return res.status(404).send({ status: false, message: `No active subcription for this ${userName} ` })
         }
 
-        const validSub = []
+        const validSub = []                                                //will push all valid Subcription
 
         for (let i = 0; i < findSub.length; i++) {
             if (findSub[i].planId === 'FREE') {
@@ -194,18 +194,18 @@ const getSubcription = async function (req, res) {
             const strDate = findSub[i].startDate                           //start Date
 
             const newDate = new Date(`${strDate} 00:00:00`);
-            const strDateInMilli = newDate.getTime();                       //conver to milliseconds
+            const strDateInMilli = newDate.getTime();                       //conver start Date to milliseconds
 
 
             const planIndex = plan.enumPlanId.indexOf(findSub[i].planId)    // index of planId from plan array
             const days = plan.enumPlanValidity[planIndex]                    // valid days
 
-            const validTill = (days * 24 * 60 * 60 * 1000) + strDateInMilli  // find valid date milliseconds
+            const validTill = (days * 24 * 60 * 60 * 1000) + strDateInMilli  // find valid date in milliseconds
 
             if (validTill > Date.now()) {
 
-                const validTill = new Date(validTill).toLocaleDateString()
-                const arr = validTill.split('/')                               //to convert date format
+                const validDate = new Date(validTill).toLocaleDateString()
+                const arr = validDate.split('/')                               //to convert required date format
 
                 const obj = {
                     planId: findSub[i].planId,
