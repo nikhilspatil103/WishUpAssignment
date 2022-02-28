@@ -9,16 +9,16 @@
 - User Model
 ```JavaScript
 {
-    user_name : {type: String, required: Name is mandatory, trim: true, unique: true},
-    created_at : {type: Date}
+    userName : {type: String, required: true, unique: true},
+    
 }
 ```
 - Subscription Model
 ```JavaScript
 {
-    user_name : {type: String, required: Name is mandatory, trim: true, unique: true},
-    plan_id : {type: String, required: Subscription plan is mandatory, trim: true},
-    start_date : {type: String}
+    user_name : {type: String, required: true, unique: true},
+    planId : {type: String, required: true},
+    startDate : {type: String}
 }
 ```
 ## API Services
@@ -35,8 +35,8 @@
 - **Sample Output**
 ```JavScript
 {
-    user_name : "Tushar Saini",
-    created_at : "2022-02-28 20:30:05"
+    userName : "Nikhil Patil",
+    createdAt : "2022-02-28 20:30:05"
 }
 ```
 ### POST /subscription
@@ -45,16 +45,16 @@
 - **Sample Input**
     ```yaml
     {
-        user_name : "Tushar Saini",
-        plan_id : "PRO_1M",
-        start_date : "2022-02-28"
+        userName : "Nikhil Patil",
+        planId : "PRO_1M",
+        startDate : "2022-02-28"
     }
     ```
 - **Expected Output**
     ```yaml
     {
         status : "Success",
-        amount : "-200.0"
+        amount : "100.0"
     }
     ```
 - On success, return 200 HTTP status code. For failures, pick an appropriate status code for it.
@@ -75,8 +75,8 @@ PRO_6M  | 180 | 900.0
 - __Sample Output__
     ```JavaScript
     {
-        plan_id : "PRO_1M",
-        days_left : 3
+        planId : "PRO_1M",
+        daysLeft : 3
     }
     ```
 - When input date is NOT specified.
@@ -84,13 +84,13 @@ PRO_6M  | 180 | 900.0
 - __Sample Output__
     ```JavaScript
     {
-        plan_id : "TRIAL",
-        start_date : "2022-02-27",
-        valid_till : "2022-03-27"
+        planId : "TRIAL",
+        startDate : "2022-02-27",
+        validTill : "2022-03-27"
     },
     {
-       plan_id : "PRO_1M",
-        start_date : "2022-02-27",
-        valid_till : "2022-03-05"
+       planId : "PRO_1M",
+        startDate : "2022-02-27",
+        validTill : "2022-03-05"
     }
     ```
