@@ -16,7 +16,7 @@
 - Subscription Model
 ```JavaScript
 {
-    user_name : {type: String, required: true, unique: true},
+    userName : {type: String, required: true, unique: true},
     planId : {type: String, required: true},
     startDate : {type: String}
 }
@@ -62,12 +62,14 @@
 - plan_id can be one of those listed in the table below : 
 **Plan ID** | **Validity (in days)** | **Cost (USD)**
 | :--- | ---: | :---:
-FREE | infinite | 0.0
-TRIAL  | 7 |0.0
-LITE_1M | 30 | 100.0
-PRO_1M  | 30| 200.0
-LITE_6M  | 180 | 500.0
-PRO_6M  | 180 | 900.0
+|**Plan ID** | **Validity (in days)** | **Cost (USD)**|
+|------------|------------------------|---------------|
+|   FREE     |      infinite          |    0.0        |
+|   TRIAL    |         7              |    0.0        |
+|  LITE_1M   |        30              |  100.0        |
+|  PRO_1M    |        30              |  200.0        |
+|  LITE_6M   |       180              |  500.0        |
+|  PRO_6M    |       180              |  900.0        |
 ### GET /subscription/:user_name/:start_date
 - When input date is specified.
     - plan_id that will be active for user at specified date.
