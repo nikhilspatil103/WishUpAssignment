@@ -61,7 +61,7 @@
 - The timestamps indicates the start dtae for the new plan, and it will be valid for the number of days shown in th etable below.
 - plan_id can be one of those listed in the table below : 
 **Plan ID** | **Validity (in days)** | **Cost (USD)**
-| :--- | ---: | :---:
+
 |**Plan ID** | **Validity (in days)** | **Cost (USD)**|
 |------------|------------------------|---------------|
 |   FREE     |      infinite          |    0.0        |
