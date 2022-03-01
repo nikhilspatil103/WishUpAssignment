@@ -82,6 +82,9 @@
         daysLeft : 3
     }
     ```
+  - Postman sample
+![A Postman collection sample](assets/getSubByDate-.png)
+
 ### GET /subscription/:userName
 - When input date is NOT specified.
     - List all subscription entrie available in database for user with start and valid till dates.
@@ -98,3 +101,6 @@
         validTill : "2022-03-05"
     }
     ```
+     - Postman sample
+ 
+  ![A Postman collection sample](assets/getSubByName.png)
