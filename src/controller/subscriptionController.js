@@ -16,7 +16,7 @@ const buySubscription = async function (req, res) {
         if (!validator.isValidRequestBody(requestBody)) {
             return res.status(400).send({ status: false, message: "Invalid request parameter, please provide user Detaills" })
         }
-        
+
         //destruturing
         const { userName, planId, startDate } = requestBody
 
@@ -51,7 +51,6 @@ const buySubscription = async function (req, res) {
         await subscriptionModel.create(requestBody)                                // store in DB
 
         const planIndex = plan.enumPlanId.indexOf(planId)                          //index of planId
-
         const amount = plan.enumPlanCost[planIndex]                               // ammout correcponding to PlanId
 
         return res.status(200).send({ status: 'SUCCESS', amount: amount })
@@ -61,7 +60,7 @@ const buySubscription = async function (req, res) {
     }
 }
 
-//!------------------------------------------
+//!--------------------------------------------------------------------------------------
 
 //getSubcriptionByDate API
 // to calculate days basic logic is to substract subscription end date with param date (in milliseconds)
@@ -93,16 +92,16 @@ const getSubcriptionByDate = async function (req, res) {
         const findSub = await subscriptionModel.find({ userName: userName })
 
         if (findSub.length === 0) {
-            return res.status(404).send({ status: false, message: `No active subcription for this ${userName} ` })
+            return res.status(404).send({ status: false, message: `No active subcription for  ${userName} ` })
         }
 
         const newDate = new Date(`${date} 00:00:00`);
         const dateFromParams = newDate.getTime()                 //converting date from params  to milliseconds
 
 
-        let validSub = []                                                //will push all valid Subcription
+        const validSub = []                                                //will push all valid Subcription
 
-        for (let i = 0; i < findSub.length; i++) {
+        for (let i in findSub) {
             if (findSub[i].planId === 'FREE') {
 
                 const obj = {
@@ -113,7 +112,6 @@ const getSubcriptionByDate = async function (req, res) {
             }
             const strDate = findSub[i].startDate                             //start Date
 
-
             const newDate = new Date(`${strDate} 00:00:00`);
             const strDateInMilli = newDate.getTime();                         //conver start Date to milliseconds
 
@@ -121,9 +119,7 @@ const getSubcriptionByDate = async function (req, res) {
             const days = plan.enumPlanValidity[planIndex]                    // valid days
 
 
-
             const validTill = (days * 24 * 60 * 60 * 1000) + strDateInMilli   // find valid date in milliseconds
-
             const timeDiff = validTill - dateFromParams
 
             if (timeDiff <= 0) {
@@ -132,10 +128,9 @@ const getSubcriptionByDate = async function (req, res) {
                     daysLeft: 0
                 }
                 validSub.push(obj)
-            } else {
-
+            }
+            if (timeDiff > 0) {
                 const daysLeft = timeDiff / (1000 * 60 * 60 * 24)
-               
                 const obj = {
                     planId: findSub[i].planId,
                     daysLeft: daysLeft
@@ -145,7 +140,7 @@ const getSubcriptionByDate = async function (req, res) {
         }
 
         if (validSub.length === 0) {
-            return res.status(404).send({ status: false, message: `No active subcription for this ${userName} ` })
+            return res.status(404).send({ status: false, message: `No active subcription for  ${userName} ` })
         }
 
         return res.status(200).send({ status: true, data: validSub })
@@ -180,7 +175,7 @@ const getSubcription = async function (req, res) {
         const findSub = await subscriptionModel.find({ userName: userName })
 
         if (findSub.length === 0) {
-            return res.status(404).send({ status: false, message: `No active subcription for this ${userName} ` })
+            return res.status(404).send({ status: false, message: `No active subcription for  ${userName} ` })
         }
 
         const validSub = []                                                //will push all valid Subcription
@@ -188,28 +183,28 @@ const getSubcription = async function (req, res) {
         for (let i = 0; i < findSub.length; i++) {
             if (findSub[i].planId === 'FREE') {
 
-                let obj = {
+                const obj = {
                     planId: findSub[i].planId,
                     startDate: findSub[i].startDate,
                     validTill: 'infinite'
                 }
                 validSub.push(obj)
-            }
-            const strDate = findSub[i].startDate                           //start Date
+            } else {
+                const strDate = findSub[i].startDate                           //start Date
 
-            const newDate = new Date(`${strDate} 00:00:00`);
-            const strDateInMilli = newDate.getTime();                       //conver start Date to milliseconds
+                const newDate = new Date(`${strDate} 00:00:00`);
+                const strDateInMilli = newDate.getTime();                       //conver start Date to milliseconds
 
 
-            const planIndex = plan.enumPlanId.indexOf(findSub[i].planId)    // index of planId from plan array
-            const days = plan.enumPlanValidity[planIndex]                    // valid days
+                const planIndex = plan.enumPlanId.indexOf(findSub[i].planId)    // index of planId from plan array
+                const days = plan.enumPlanValidity[planIndex]                    // valid days
 
-            const validTill = (days * 24 * 60 * 60 * 1000) + strDateInMilli  // find valid date in milliseconds
+                const validTill = (days * 24 * 60 * 60 * 1000) + strDateInMilli  // find valid date in milliseconds
 
-            if (validTill > Date.now()) {
+
 
                 const validDate = new Date(validTill).toLocaleDateString()
-                const arr = validDate.split('/')                               //to convert required date format
+                const arr = validDate.split('/')                               //split and  convert to required date format
 
                 const obj = {
                     planId: findSub[i].planId,
@@ -221,7 +216,7 @@ const getSubcription = async function (req, res) {
         }
 
         if (validSub.length === 0) {
-            return res.status(404).send({ status: false, message: `No active subcription for this ${userName} ` })
+            return res.status(404).send({ status: false, message: `No active subcription for  ${userName} ` })
         }
 
         return res.status(200).send({ status: true, data: validSub })
