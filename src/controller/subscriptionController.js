@@ -102,7 +102,7 @@ const getSubcriptionByDate = async function (req, res) {
         const validSub = []                                                //will push all valid Subcription
 
         for (let i in findSub) {
-            if (findSub[i].planId === 'FREE') {
+            if (findSub[i].planId === 'FREE') {                   //if free
 
                 const obj = {
                     planId: findSub[i].planId,
@@ -181,8 +181,8 @@ const getSubcription = async function (req, res) {
         const validSub = []                                                //will push all valid Subcription
 
         for (let i = 0; i < findSub.length; i++) {
-            if (findSub[i].planId === 'FREE') {
-
+            if (findSub[i].planId === 'FREE') {                           //if free
+ 
                 const obj = {
                     planId: findSub[i].planId,
                     startDate: findSub[i].startDate,
